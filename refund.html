@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h3>환불 요청</h3>
+  <p>현재 잔액: <strong>{{ balance }}원</strong></p>
+
+  <form method="post" class="mb-4" style="max-width:400px;">
+    <div class="mb-3">
+      <label class="form-label">환불 요청 금액</label>
+      <input type="number" name="amount" class="form-control" required min="1" max="{{ balance }}">
+    </div>
+    <button class="btn btn-danger w-100">환불 요청</button>
+  </form>
+
+  <h5>환불 요청 내역</h5>
+  {% if requests %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>금액</th>
+          <th>상태</th>
+          <th>요청시간</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in requests %}
+        <tr>
+          <td>{{ r.id }}</td>
+          <td>{{ r.amount }}원</td>
+          <td>{{ r.status }}</td>
+          <td>{{ r.created_at }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>환불 요청 내역이 없습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}

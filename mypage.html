@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h3>마이페이지</h3>
+  <div class="card">
+    <div class="card-body">
+      <p><strong>아이디:</strong> {{ user.username }}</p>
+      <p><strong>잔액:</strong> {{ user.balance }}원</p>
+      <p><strong>주문 수:</strong> {{ order_count }}건</p>
+      {% if user.is_admin == 1 %}
+        <p><span class="badge bg-danger">관리자 계정</span></p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <a href="{{ url_for('cart') }}" class="btn btn-outline-primary btn-sm">장바구니</a>
+    <a href="{{ url_for('wishlist') }}" class="btn btn-outline-warning btn-sm">찜 목록</a>
+    <a href="{{ url_for('orders') }}" class="btn btn-outline-secondary btn-sm">주문 목록</a>
+    <a href="{{ url_for('recharge') }}" class="btn btn-outline-success btn-sm">충전</a>
+    <a href="{{ url_for('refund') }}" class="btn btn-outline-danger btn-sm">환불 요청</a>
+    <a href="{{ url_for('transactions') }}" class="btn btn-outline-dark btn-sm">거래 내역</a>
+    {% if user.is_admin == 1 %}
+      <a href="{{ url_for('admin_dashboard') }}" class="btn btn-sm btn-danger">관리자 대시보드</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

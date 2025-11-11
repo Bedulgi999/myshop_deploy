@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>DoveShop 상품 목록</h3>
+    {% if balance is not none %}
+      <span class="badge bg-primary">내 잔액: {{ balance }}원</span>
+    {% endif %}
+  </div>
+
+  {% if products %}
+    <div class="row g-3">
+      {% for p in products %}
+      <div class="col-md-3">
+        <div class="card h-100">
+          {% if p.image %}
+            <img src="{{ p.image }}" class="card-img-top" alt="{{ p.name }}">
+          {% else %}
+            <div class="card-img-top text-center py-5 bg-light">No Image</div>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ p.name }}</h5>
+            <p class="card-text">{{ p.description }}</p>
+            <p class="fw-bold">{{ p.price }}원</p>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <a href="{{ url_for('order', product_id=p.id) }}" class="btn btn-sm btn-success">바로 구매</a>
+            <div class="btn-group">
+              <a href="{{ url_for('add_cart', pid=p.id) }}" class="btn btn-sm btn-outline-primary">장바구니</a>
+              <a href="{{ url_for('add_wishlist', pid=p.id) }}" class="btn btn-sm btn-outline-warning">찜</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>등록된 상품이 없습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}
