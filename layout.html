@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title or "DoveShop" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <style>
+    body { background-color: #fafafa; }
+    .navbar-brand { font-weight: bold; }
+    footer { margin-top: 50px; padding: 20px 0; color: #888; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 네비게이션 -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('index') }}">🕊 DoveShop</a>
+
+      <div>
+        {% if session.get('user_id') %}
+          {% if session.get('is_admin') == 1 %}
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-dark btn-sm">관리자</a>
+          {% endif %}
+          <a href="{{ url_for('mypage') }}" class="btn btn-outline-secondary btn-sm">마이페이지</a>
+          <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">로그아웃</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-sm">로그인</a>
+          <a href="{{ url_for('register') }}" class="btn btn-outline-success btn-sm">회원가입</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- 본문 -->
+  <div class="container py-4">
+    {% block content %}{% endblock %}
+  </div>
+
+  <footer>
+    <div class="container">
+      <small>© 2025 DoveShop — Powered by Flask</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
