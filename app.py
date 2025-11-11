@@ -45,6 +45,12 @@ def allowed_file(filename: str) -> bool:
 
 
 def send_email(to_email: str, subject: str, body: str):
+    print("📧 [테스트 모드] 메일 전송 생략")
+    print("To:", to_email)
+    print("Subject:", subject)
+    print("Body:", body)
+    return
+
     """
     Gmail SMTP로 메일 보내기
     Railway 환경변수:
@@ -984,3 +990,4 @@ def admin_refunds_approve(req_id):
 if __name__ == "__main__":
     # 로컬 테스트용
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=True)
+
